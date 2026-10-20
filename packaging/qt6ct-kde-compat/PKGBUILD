@@ -1,0 +1,23 @@
+# Maintainer: ODINSHAN2 <185443073+ODINSHAN2@users.noreply.github.com>
+#
+# Empty compatibility package. catos-niri-dms depends on qt6ct-kde, but the
+# catos repo's qt6ct-kde 0.11-8 was built against Qt 6.11; on Qt 6.12 its
+# platform-theme plugin is ignored ("mismatching Qt versions") and every Qt
+# app loses its theme. This package stands in for qt6ct-kde and pulls in
+# Arch's qt6ct, which is rebuilt with every Qt release.
+#
+# Remove it once catos ships a qt6ct-kde built for the current Qt:
+#   sudo pacman -S catos/qt6ct-kde
+pkgname=qt6ct-kde-compat
+pkgver=0.11
+pkgrel=1
+pkgdesc="Use Arch's qt6ct in place of a stale qt6ct-kde (dependency shim)"
+arch=('any')
+license=('MIT')
+depends=('qt6ct')
+provides=('qt6ct-kde')
+conflicts=('qt6ct-kde')
+
+package() {
+  :
+}

@@ -2,3 +2,5 @@
 /src/
 *.pkg.tar.*
 *.log
+/packaging/*/pkg/
+/packaging/*/src/
