@@ -1,0 +1,8 @@
+// Mistlake keybindings. Mod+Y stays DMS's own wallpaper browser (current
+// folder only); Mod+Shift+Y opens the Mistlake picker, which also searches
+// subfolders.
+binds {
+    Mod+Shift+Y hotkey-overlay-title="Browse all wallpapers (with subfolders)" {
+        spawn "mistlake-wallpaper";
+    }
+}

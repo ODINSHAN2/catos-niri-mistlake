@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# Mistlake wallpaper picker: lists every image under the wallpaper root,
+# subfolders included, with cached thumbnails in fuzzel, and hands the choice
+# to DMS so DMS keeps rendering the wallpaper and deriving colors from it.
+#
+#   mistlake-wallpaper            pick from ~/Pictures/Wallpapers
+#   mistlake-wallpaper DIR        pick from DIR instead
+#   MISTLAKE_WALLPAPER_DIR=DIR    same, for keybindings
+set -euo pipefail
+
+root="${1:-${MISTLAKE_WALLPAPER_DIR:-$HOME/Pictures/Wallpapers}}"
+root="${root%/}"
+thumbs="${XDG_CACHE_HOME:-$HOME/.cache}/catos-niri-mistlake/thumbs"
+
+if [[ ! -d "$root" ]]; then
+    notify-send -a Mistlake "No wallpaper folder" "$root does not exist." 2>/dev/null || true
+    echo "mistlake-wallpaper: $root does not exist" >&2
+    exit 1
+fi
+mkdir -p "$thumbs"
+
+mapfile -d '' images < <(find -L "$root" -type f \
+    \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) \
+    -print0 | sort -z)
+if (( ${#images[@]} == 0 )); then
+    notify-send -a Mistlake "No wallpapers found" "Add images under $root." 2>/dev/null || true
+    exit 1
+fi
+
+# One thumbnail per path and mtime, so edited files get a fresh preview.
+thumb_for() {
+    local key
+    key=$(printf '%s\t%s' "$1" "$(stat -c %Y -- "$1")" | sha1sum | cut -c1-16)
+    printf '%s/%s.png' "$thumbs" "$key"
+}
+
+missing=()
+for img in "${images[@]}"; do
+    t=$(thumb_for "$img")
+    [[ -s "$t" ]] || missing+=("$img"$'\t'"$t")
+done
+if (( ${#missing[@]} > 0 )); then
+    printf '%s\n' "${missing[@]}" | xargs -P "$(nproc)" -d '\n' -I{} \
+        bash -c 'IFS=$'"'"'\t'"'"' read -r src dst <<< "$1"; magick -- "$src[0]" -thumbnail 192x108^ -gravity center -extent 192x108 "$dst" 2>/dev/null || true' _ {}
+fi
+
+current=$(dms ipc call wallpaper get 2>/dev/null | tr -d '"' || true)
+select_index=0
+menu=""
+for i in "${!images[@]}"; do
+    img=${images[$i]}
+    rel=${img#"$root"/}
+    dir=$(dirname -- "$rel")
+    name=$(basename -- "$rel")
+    name=${name%.*}
+    if [[ "$dir" == "." ]]; then label="$name"; else label="${dir//\// › }  ·  $name"; fi
+    [[ "$img" == "$current" ]] && select_index=$i
+    menu+="$label"$'\0'"icon"$'\x1f'"$(thumb_for "$img")"$'\n'
+done
+
+choice=$(printf '%s' "$menu" | fuzzel --dmenu --index \
+    --prompt "壁纸 ❯ " --line-height=40 --lines 8 --width 56 \
+    --select-index "$select_index" --counter) || exit 0
+[[ -n "$choice" ]] || exit 0
+
+dms ipc call wallpaper set "${images[$choice]}" >/dev/null
