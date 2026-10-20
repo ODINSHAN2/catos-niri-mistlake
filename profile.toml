@@ -1,0 +1,48 @@
+schema = 4
+name = "CatOS Niri DMS"
+description = "Complete CatOS Niri desktop powered by Dank Material Shell"
+
+packages = [
+  "niri",
+  "xdg-desktop-portal-gtk",
+  "xdg-desktop-portal-gnome",
+  "gnome-keyring",
+  "dms-shell",
+  "catos-niri-utils",
+  "matugen",
+  "adw-gtk-theme",
+  "qt6ct-kde",
+  "qt6-multimedia",
+  "fuzzel",
+  "satty",
+  "wl-clipboard",
+  "fcitx5",
+  "btop",
+  "cava",
+  "cliphist",
+  "cups-pk-helper",
+  "i2c-tools",
+  "power-profiles-daemon",
+  "wtype",
+  "ghostty",
+  "xwayland-satellite",
+  "tela-circle-icon-theme-all",
+  "catos-bibata-cursor",
+]
+
+manage = [
+  ".config/niri/config.kdl",
+  ".config/niri/catos/session.kdl",
+  ".config/niri/catos/layout.kdl",
+  ".config/niri/catos/animations.kdl",
+  ".config/niri/catos/windowrules.kdl",
+  ".config/niri/catos/recent-windows.kdl",
+  ".config/niri/catos/tools.kdl",
+  ".config/environment.d/80-catos-niri.conf",
+  ".config/xdg-desktop-portal/niri-portals.conf",
+  ".gtkrc-2.0",
+  ".config/gtk-3.0/settings.ini",
+  ".config/gtk-4.0/settings.ini",
+  ".config/gtk-4.0/gtk.css",
+  ".icons/default/index.theme",
+]

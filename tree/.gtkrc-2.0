@@ -1,0 +1,17 @@
+# GTK 2 compatibility settings. GTK 2 has no adw-gtk3 equivalent, so CatOS
+# leaves the widget theme to GTK's fallback while keeping shared appearance.
+gtk-icon-theme-name="Tela-circle-blue-dark"
+gtk-font-name="Sans 10"
+gtk-cursor-theme-name="Bibata-Modern-Ice"
+gtk-cursor-theme-size=24
+gtk-toolbar-style=3
+gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
+gtk-button-images=0
+gtk-menu-images=0
+gtk-enable-event-sounds=0
+gtk-enable-input-feedback-sounds=0
+gtk-xft-antialias=1
+gtk-xft-hinting=1
+gtk-xft-hintstyle="hintslight"
+gtk-xft-rgba="rgb"
+gtk-im-module="fcitx"

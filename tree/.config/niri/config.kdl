@@ -1,0 +1,26 @@
+// CatOS Niri profile coordinator. Stable CatOS policy, DMS-generated fragments
+// and user-owned customizations are kept in separate modules.
+config-notification {
+    disable-failed
+}
+
+// CatOS-managed desktop baseline.
+include "catos/session.kdl"
+include "catos/layout.kdl"
+include "catos/animations.kdl"
+include "catos/windowrules.kdl"
+include "catos/recent-windows.kdl"
+include "catos/tools.kdl"
+
+// DMS-generated and DMS-owned fragments.
+include optional=true "dms/colors.kdl"
+include optional=true "dms/layout.kdl"
+include optional=true "dms/alttab.kdl"
+include optional=true "dms/binds.kdl"
+include optional=true "dms/cursor.kdl"
+include optional=true "dms/windowrules.kdl"
+
+// Profile-scoped user customizations. Catdot seeds these files once.
+include optional=true "custom/catos-niri-dms/input.kdl"
+include optional=true "custom/catos-niri-dms/outputs.kdl"
+include optional=true "custom/catos-niri-dms/rules.kdl"
