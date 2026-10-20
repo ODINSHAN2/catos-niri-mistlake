@@ -58,3 +58,31 @@ layer-rule {
         blur true
     }
 }
+
+// Electron and Firefox windows paint their own opaque backgrounds, so the blur
+// above never shows through them. Fade the whole window a little instead:
+// text stays sharp at these levels and the frost appears behind it.
+window-rule {
+    match app-id=r#"^com\.anthropic\.Claude$"#
+    match app-id=r#"^QQ$"#
+    match app-id=r#"^firefox$"#
+    match app-id=r#"^code(-oss)?$"#
+    match app-id=r#"^(chromium|google-chrome|brave-browser)$"#
+    opacity 0.94
+}
+
+window-rule {
+    match app-id=r#"^com\.anthropic\.Claude$"# is-active=false
+    match app-id=r#"^QQ$"# is-active=false
+    match app-id=r#"^firefox$"# is-active=false
+    match app-id=r#"^code(-oss)?$"# is-active=false
+    match app-id=r#"^(chromium|google-chrome|brave-browser)$"# is-active=false
+    opacity 0.88
+}
+
+// Fullscreen video and games should never be see-through.
+window-rule {
+    match app-id=r#"^(mpv|celluloid|io\.github\.celluloid_player\.Celluloid)$"#
+    match app-id=r#"^steam_app_"#
+    opacity 1.0
+}
