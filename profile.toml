@@ -30,6 +30,8 @@ packages = [
   "catos-bibata-cursor",
   "ttf-maplemono-nf-unhinted",
   "inter-font",
+  "noto-fonts",
+  "noto-fonts-cjk",
   "imagemagick",
   "libnotify",
 ]
@@ -44,6 +46,8 @@ manage = [
   ".config/niri/catos/tools.kdl",
   ".config/niri/mistlake",
   ".config/environment.d/80-catos-niri.conf",
+  ".config/environment.d/85-mistlake-fonts.conf",
+  ".config/fontconfig/conf.d/60-mistlake-fonts.conf",
   ".config/xdg-desktop-portal/niri-portals.conf",
   ".gtkrc-2.0",
   ".config/gtk-3.0/settings.ini",
