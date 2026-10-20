@@ -59,6 +59,47 @@ print(f"  merged {len(changed)} settings{bar_note}")
 EOF
 echo "  backup: $backup_dir/settings.json.$stamp"
 
+# matugen: config.toml is a catdot seed, so the Profile cannot update it after
+# the first activation. Splice the managed mistlake.toml between markers so
+# DMS's matugen run (which includes user templates) renders the Mistlake skins.
+python3 -I - "$HOME/.config/matugen/config.toml" "$HOME/.config/matugen/mistlake.toml" <<'EOF'
+import os, re, sys
+config_path, block_path = sys.argv[1], sys.argv[2]
+if not os.path.exists(block_path):
+    print("  matugen: mistlake.toml missing, skipped")
+    sys.exit(0)
+block = open(block_path, encoding="utf-8").read().rstrip("\n")
+begin = "# >>> mistlake (managed by mistlake-apply; edits here are replaced)"
+end = "# <<< mistlake"
+text = open(config_path, encoding="utf-8").read() if os.path.exists(config_path) else ""
+section = f"{begin}\n{block}\n{end}\n"
+pattern = re.compile(re.escape(begin) + r".*?" + re.escape(end) + r"\n?", re.S)
+text = pattern.sub(lambda _: section, text) if pattern.search(text) else text.rstrip("\n") + "\n\n" + section
+open(config_path, "w", encoding="utf-8").write(text)
+print("  matugen: Mistlake templates registered")
+EOF
+
+# fcitx5: rounded Mistlake skin with horizontal candidates. Only these three
+# keys are touched; fonts and every other classicui option stay yours.
+classicui="$HOME/.config/fcitx5/conf/classicui.conf"
+if [[ -f "$classicui" ]]; then
+    python3 -I - "$classicui" <<'EOF'
+import sys
+path = sys.argv[1]
+want = {"Vertical Candidate List": "False", "Theme": "Mistlake", "DarkTheme": "Mistlake"}
+lines = open(path, encoding="utf-8").read().splitlines()
+seen = set()
+for i, line in enumerate(lines):
+    key = line.split("=", 1)[0]
+    if key in want:
+        lines[i] = f"{key}={want[key]}"
+        seen.add(key)
+lines += [f"{k}={v}" for k, v in want.items() if k not in seen]
+open(path, "w", encoding="utf-8").write("\n".join(lines) + "\n")
+print("  fcitx5: Mistlake skin, horizontal candidates")
+EOF
+fi
+
 # Restart so DMS reloads settings.json. DMS reads theme.json asynchronously
 # and its startup generation can run before the palette has loaded, leaving
 # the old colors in niri, GTK, Qt and the terminals; re-asserting the current
