@@ -1,6 +1,6 @@
 schema = 4
-name = "CatOS Niri DMS"
-description = "Complete CatOS Niri desktop powered by Dank Material Shell"
+name = "CatOS Niri Mistlake"
+description = "CatOS Niri DMS desktop in the Mistlake theme: misty lake night, moss and a single lantern"
 
 packages = [
   "niri",

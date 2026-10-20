@@ -21,6 +21,6 @@ include optional=true "dms/cursor.kdl"
 include optional=true "dms/windowrules.kdl"
 
 // Profile-scoped user customizations. Catdot seeds these files once.
-include optional=true "custom/catos-niri-dms/input.kdl"
-include optional=true "custom/catos-niri-dms/outputs.kdl"
-include optional=true "custom/catos-niri-dms/rules.kdl"
+include optional=true "custom/catos-niri-mistlake/input.kdl"
+include optional=true "custom/catos-niri-mistlake/outputs.kdl"
+include optional=true "custom/catos-niri-mistlake/rules.kdl"
