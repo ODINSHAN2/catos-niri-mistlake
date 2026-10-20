@@ -20,8 +20,8 @@
     "blurBorderColor": "outline",
     "blurBorderOpacity": 0.3,
     "blurLayerOutlineOpacity": 0.1,
-    "popupTransparency": 0.86,
-    "foregroundLayerTransparency": 0.9,
+    "popupTransparency": 0.62,
+    "foregroundLayerTransparency": 0.55,
 
     "m3ElevationEnabled": true,
     "m3ElevationIntensity": 8,
