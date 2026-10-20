@@ -1,39 +1,68 @@
 #!/usr/bin/env bash
-# One-time DMS setup after `catdot select catos-niri-mistlake`.
-# Catdot never runs hooks, and DMS keeps these values in its own settings.json
-# (outside any Profile), so they are applied through DMS IPC instead of files.
+# Apply Mistlake to DMS after `catdot select` or `catdot update`.
+# Catdot never runs hooks, and DMS keeps its state in its own settings.json
+# (outside any Profile). This script merges the Profile's shell preset into
+# that file, keeping a backup, and leaves every other DMS setting untouched.
 set -euo pipefail
 
-theme="$HOME/.config/DankMaterialShell/themes/mistlake/theme.json"
-if [[ ! -f "$theme" ]]; then
-    echo "mistlake-apply: $theme not found. Run: catdot select catos-niri-mistlake" >&2
-    exit 1
-fi
+theme_dir="$HOME/.config/DankMaterialShell/themes/mistlake"
+settings="$HOME/.config/DankMaterialShell/settings.json"
+backup_dir="${XDG_STATE_HOME:-$HOME/.local/state}/catos-niri-mistlake/settings-backups"
+
+for f in "$theme_dir/theme.json" "$theme_dir/shell.json" "$settings"; do
+    if [[ ! -f "$f" ]]; then
+        echo "mistlake-apply: $f not found. Run: catdot select catos-niri-mistlake" >&2
+        exit 1
+    fi
+done
 if ! dms ipc call settings get currentThemeName >/dev/null 2>&1; then
     echo "mistlake-apply: DMS is not running; log in to the niri session first." >&2
     exit 1
 fi
 
-set_dms() {
-    dms ipc call settings set "$1" "$2" >/dev/null
-    printf '  %-26s %s\n' "$1" "$2"
-}
+mkdir -p "$backup_dir"
+stamp=$(date +%Y%m%d-%H%M%S)
+cp -- "$settings" "$backup_dir/settings.json.$stamp"
+# Keep the ten most recent backups.
+ls -1t "$backup_dir"/settings.json.* 2>/dev/null | tail -n +11 | xargs -r rm --
 
 echo "Applying Mistlake to DMS:"
-set_dms customThemeFile        "$theme"
-set_dms currentThemeCategory   custom
-set_dms currentThemeName       custom
-set_dms cornerRadius           14
-set_dms niriLayoutRadiusOverride 14
-set_dms niriLayoutGapsOverride 10
-set_dms niriLayoutBorderSize   2
-set_dms monoFontFamily         "Maple Mono NF"
+python3 -I - "$settings" "$theme_dir" <<'EOF'
+import json, os, sys, tempfile
 
-# IPC writes settings without re-running theme generation, so restart DMS to
-# load the custom theme. DMS reads theme.json asynchronously and its startup
-# generation can run before the file has loaded, leaving the old colors in
-# niri, GTK, Qt and the terminals. Re-asserting the current color mode once
-# DMS is back forces a full regeneration from the loaded Mistlake palette.
+settings_path, theme_dir = sys.argv[1], sys.argv[2]
+with open(settings_path, encoding="utf-8") as f:
+    settings = json.load(f)
+with open(os.path.join(theme_dir, "shell.json"), encoding="utf-8") as f:
+    preset = json.load(f)
+
+changed = dict(preset.get("settings", {}))
+changed["currentThemeCategory"] = "custom"
+changed["currentThemeName"] = "custom"
+changed["customThemeFile"] = os.path.join(theme_dir, "theme.json")
+settings.update(changed)
+
+bars = settings.setdefault("barConfigs", [])
+bar = next((b for b in bars if b.get("id") == "default"), None)
+if bar is None:
+    print("  no bar with id 'default'; bar preset skipped")
+else:
+    bar.update(preset.get("bar", {}))
+
+fd, tmp = tempfile.mkstemp(dir=os.path.dirname(settings_path), prefix=".settings.")
+with os.fdopen(fd, "w", encoding="utf-8") as f:
+    json.dump(settings, f, ensure_ascii=False, indent=2)
+    f.write("\n")
+os.replace(tmp, settings_path)
+bar_note = "" if bar is None else f" and {len(preset.get('bar', {}))} bar fields"
+print(f"  merged {len(changed)} settings{bar_note}")
+EOF
+echo "  backup: $backup_dir/settings.json.$stamp"
+
+# Restart so DMS reloads settings.json. DMS reads theme.json asynchronously
+# and its startup generation can run before the palette has loaded, leaving
+# the old colors in niri, GTK, Qt and the terminals; re-asserting the current
+# color mode once DMS is back forces a full regeneration.
 dms restart >/dev/null 2>&1 || true
 for _ in $(seq 1 30); do
     sleep 0.5
