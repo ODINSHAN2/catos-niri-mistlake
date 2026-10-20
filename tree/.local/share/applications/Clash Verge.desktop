@@ -1,0 +1,15 @@
+[Desktop Entry]
+# Mistlake override of /usr/share/applications/Clash Verge.desktop.
+# Clash Verge Rev renders its UI with WebKitGTK. On NVIDIA it forces
+# WEBKIT_DISABLE_DMABUF_RENDERER=1, and scrolling stutters on niri. Keeping
+# the DMA-BUF renderer on and turning off NVIDIA explicit sync for this app
+# only makes scrolling smooth (tested on driver 615.78, RTX 5060).
+Categories=Development;
+Comment=Clash Verge Rev
+Exec=env WEBKIT_DISABLE_DMABUF_RENDERER=0 __NV_DISABLE_EXPLICIT_SYNC=1 clash-verge %u
+StartupWMClass=clash-verge
+Icon=clash-verge
+Name=Clash Verge
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/clash;

@@ -60,4 +60,5 @@ manage = [
   ".config/matugen/mistlake.toml",
   ".local/share/fcitx5/themes/catppuccin-mocha-sapphire",
   ".local/share/fcitx5/themes/catppuccin-latte-sapphire",
+  ".local/share/applications/Clash Verge.desktop",
 ]
