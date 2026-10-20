@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Stage the Profile the way the package installs it, then run catdot's validator
+# and niri's config check against the staged tree.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+id=catos-niri-mistlake
+stage=$(mktemp -d)
+trap 'rm -rf "$stage"' EXIT
+install -Dm644 profile.toml "$stage/catdot/profiles/$id/profile.toml"
+mkdir -p "$stage/$id"
+cp -a tree/. "$stage/$id/"
+catdot validate "$stage/catdot/profiles"
+niri validate -c "tree/.config/niri/config.kdl" 2>&1 | tail -n 1
