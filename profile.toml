@@ -50,6 +50,7 @@ manage = [
   ".config/fontconfig/conf.d/60-mistlake-fonts.conf",
   ".config/fish/config.d/70-mistlake.fish",
   ".config/bat/config",
+  ".local/share/catos-niri-mistlake/firefox",
   ".config/xdg-desktop-portal/niri-portals.conf",
   ".gtkrc-2.0",
   ".config/gtk-3.0/settings.ini",

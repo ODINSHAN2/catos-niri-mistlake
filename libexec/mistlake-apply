@@ -148,6 +148,71 @@ print("  qt6ct: DMS palette (qt6ct format)")
 EOF
 fi
 
+# Firefox: Material Fox Updated (managed copy under ~/.local/share) styled
+# with DMS's matugen colors (~/.config/DankMaterialShell/firefox.css). Profile
+# directories have random names catdot cannot manage, so each profile gets a
+# small chrome/userChrome.css + userContent.css that import the theme and
+# then the DMS colors, plus the required prefs in a marked user.js block.
+# A chrome/ directory this script did not write is left alone.
+python3 -I - "$HOME" <<'EOF'
+import configparser, os, sys
+home = sys.argv[1]
+theme = os.path.join(home, ".local/share/catos-niri-mistlake/firefox/chrome")
+colors = os.path.join(home, ".config/DankMaterialShell/firefox.css")
+if not os.path.isdir(theme):
+    print("  firefox: theme files missing, skipped")
+    sys.exit(0)
+marker = "/* Managed by catos-niri-mistlake (mistlake-apply); edits are replaced. */"
+def css(name):
+    lines = [marker, f'@import url("file://{theme}/{name}");']
+    if os.path.exists(colors):
+        lines.append(f'@import url("file://{colors}");')
+    return "\n".join(lines) + "\n"
+begin, end = "// >>> mistlake", "// <<< mistlake"
+prefs = "\n".join([begin,
+    'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);',
+    'user_pref("svg.context-properties.content.enabled", true);',
+    'user_pref("layout.css.color-mix.enabled", true);',
+    'user_pref("userChrome.theme-material", true);',
+    end]) + "\n"
+done, skipped = [], []
+for root in (".config/mozilla/firefox", ".mozilla/firefox"):
+    base = os.path.join(home, root)
+    ini = os.path.join(base, "profiles.ini")
+    if not os.path.exists(ini):
+        continue
+    cp = configparser.ConfigParser()
+    cp.read(ini)
+    for sec in cp.sections():
+        if not sec.startswith("Profile") or "Path" not in cp[sec]:
+            continue
+        rel = cp[sec].get("IsRelative", "1") == "1"
+        prof = os.path.join(base, cp[sec]["Path"]) if rel else cp[sec]["Path"]
+        if not os.path.isdir(prof):
+            continue
+        chrome = os.path.join(prof, "chrome")
+        uc = os.path.join(chrome, "userChrome.css")
+        if os.path.isdir(chrome) and os.listdir(chrome) and not (
+                os.path.exists(uc) and open(uc, encoding="utf-8").readline().strip() == marker):
+            skipped.append(cp[sec]["Path"])
+            continue
+        os.makedirs(chrome, exist_ok=True)
+        for name in ("userChrome.css", "userContent.css"):
+            open(os.path.join(chrome, name), "w", encoding="utf-8").write(css(name))
+        ujs = os.path.join(prof, "user.js")
+        text = open(ujs, encoding="utf-8").read() if os.path.exists(ujs) else ""
+        if begin in text and end in text:
+            text = text[:text.index(begin)] + prefs + text[text.index(end) + len(end):].lstrip("\n")
+        else:
+            text = text.rstrip("\n") + ("\n\n" if text else "") + prefs
+        open(ujs, "w", encoding="utf-8").write(text)
+        done.append(cp[sec]["Path"])
+msg = f"  firefox: Material Fox + DMS colors in {len(done)} profile(s)"
+if skipped:
+    msg += f"; skipped (own chrome/): {', '.join(skipped)}"
+print(msg + ("; restart Firefox to apply" if done else ""))
+EOF
+
 # Cursor: niri (~/.icons/default), GTK settings.ini and XCURSOR_THEME already
 # use Bibata-Modern-Ice, but the gsettings key read by GTK4/libadwaita apps
 # and portal dialogs defaulted to Adwaita, so the cursor changed style

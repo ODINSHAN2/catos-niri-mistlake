@@ -1,0 +1,5 @@
+Material Fox Updated, https://github.com/edelvarden/material-fox-updated
+Release v2.0.0, asset chrome.zip (sha256 08ed43d1c1940d43a3cc80e5fa3d914c1987e1571b5f0fd37e31af7ccfba2123), unmodified.
+License: MIT, see LICENSE.
+Colors come from ~/.config/DankMaterialShell/firefox.css (DMS matugen), imported after
+this theme by the per-profile userChrome.css that mistlake-apply writes.
