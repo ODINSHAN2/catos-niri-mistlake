@@ -1,0 +1,6 @@
+# Mistlake: bat uses the matugen-rendered Mistlake syntax theme
+# (~/.config/bat/themes/Mistlake.tmTheme), built into bat's cache by the
+# template's post_hook.
+--theme="Mistlake"
+--style="numbers,changes,header"
+--italic-text=always

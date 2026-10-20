@@ -51,4 +51,12 @@ output_path = '~/.config/fish/mistlake-colors.fish'
 [templates.mistlake_fastfetch]
 input_path = '~/.config/matugen/templates/mistlake/shell/fastfetch.jsonc'
 output_path = '~/.config/fastfetch/config.jsonc'
+[templates.mistlake_bat]
+input_path = '~/.config/matugen/templates/mistlake/shell/bat.tmTheme'
+output_path = '~/.config/bat/themes/Mistlake.tmTheme'
+post_hook = 'bat cache --build >/dev/null 2>&1 || true'
+
+[templates.mistlake_eza]
+input_path = '~/.config/matugen/templates/mistlake/shell/eza-theme.yml'
+output_path = '~/.config/eza/theme.yml'
 # <<< mistlake
