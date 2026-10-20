@@ -24,6 +24,12 @@ include optional=true "dms/alttab.kdl"
 include optional=true "dms/binds.kdl"
 include optional=true "dms/cursor.kdl"
 include optional=true "dms/windowrules.kdl"
+// DMS writes these too and expects them included. Without outputs.kdl niri
+// starts every boot in the monitor's preferred mode (60Hz instead of the
+// 180Hz chosen in DMS); without input.kdl DMS mouse/touchpad settings are lost.
+include optional=true "dms/wpblur.kdl"
+include optional=true "dms/input.kdl"
+include optional=true "dms/outputs.kdl"
 
 // Mistlake accents that must win over DMS-generated colors.
 include "mistlake/accents.kdl"
