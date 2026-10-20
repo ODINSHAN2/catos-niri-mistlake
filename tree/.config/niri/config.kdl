@@ -27,6 +27,7 @@ include optional=true "dms/windowrules.kdl"
 
 // Mistlake accents that must win over DMS-generated colors.
 include "mistlake/accents.kdl"
+include optional=true "mistlake-generated/overview.kdl"
 
 // Profile-scoped user customizations. Catdot seeds these files once.
 include optional=true "custom/catos-niri-mistlake/input.kdl"

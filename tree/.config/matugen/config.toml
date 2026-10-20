@@ -59,4 +59,7 @@ post_hook = 'bat cache --build >/dev/null 2>&1 || true'
 [templates.mistlake_eza]
 input_path = '~/.config/matugen/templates/mistlake/shell/eza-theme.yml'
 output_path = '~/.config/eza/theme.yml'
+[templates.mistlake_niri_overview]
+input_path = '~/.config/matugen/templates/mistlake/niri/overview.kdl'
+output_path = '~/.config/niri/mistlake-generated/overview.kdl'
 # <<< mistlake

@@ -21,7 +21,9 @@ layout {
 }
 
 overview {
-    // Deepest Mistlake surface, so the overview looks like the lake at night.
+    // The backdrop color comes from the palette in
+    // ~/.config/niri/mistlake-generated/overview.kdl (matugen), so it follows
+    // light and dark mode; this is only the fallback before the first render.
     backdrop-color "#0a1013"
     workspace-shadow {
         off

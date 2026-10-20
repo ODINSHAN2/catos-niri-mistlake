@@ -40,6 +40,13 @@
     "showWorkspaceApps": false,
     "workspaceFocusedBorderEnabled": false,
 
+    "lockScreenClockStyle": "vertical",
+    "lockScreenFontFamily": "Inter Variable",
+    "lockScreenInactiveColor": "#0a1013",
+    "lockScreenShowWeather": false,
+    "lockScreenShowMediaPlayer": true,
+    "lockScreenShowProfileImage": true,
+
     "blurredWallpaperLayer": true,
     "blurWallpaperOnOverview": true
   },
