@@ -35,6 +35,16 @@ window-rule {
     clip-to-geometry true
 }
 
+// DMS draws the sharp wallpaper on a background layer named "quickshell" and a
+// blurred copy as "dms:blurwallpaper" (meant only for the overview backdrop).
+// catos/layout.kdl puts both into the backdrop, where the blurred copy covers
+// the sharp one, so the desktop always looked blurred. Keep the sharp
+// wallpaper on the desktop; the blurred copy stays in the overview backdrop.
+layer-rule {
+    match namespace="^quickshell$"
+    place-within-backdrop false
+}
+
 // Background blur (niri 26.04+). Slightly larger and calmer than the default
 // so translucent windows read as frosted mist rather than glass.
 blur {
