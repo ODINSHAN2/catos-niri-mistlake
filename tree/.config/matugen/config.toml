@@ -41,4 +41,11 @@ output_path = '~/.config/gtk-3.0/mistlake.css'
 [templates.mistlake_gtk4]
 input_path = '~/.config/matugen/templates/mistlake/gtk/mistlake.css'
 output_path = '~/.config/gtk-4.0/mistlake.css'
+[templates.mistlake_starship]
+input_path = '~/.config/matugen/templates/mistlake/shell/starship.toml'
+output_path = '~/.config/starship/mistlake.toml'
+
+[templates.mistlake_fish]
+input_path = '~/.config/matugen/templates/mistlake/shell/colors.fish'
+output_path = '~/.config/fish/mistlake-colors.fish'
 # <<< mistlake
