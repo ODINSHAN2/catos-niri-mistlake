@@ -2,6 +2,16 @@
 
 A theme Profile for CatOS niri + DMS. It is a complete catdot Profile derived from `catos-niri-dms` (`catos-niri-mistlake`), and the palette is pushed out to the whole system from a single DMS theme file.
 
+![Desktop: a floating translucent bar over a sharp misty-forest wallpaper](docs/screenshots/desktop.webp)
+
+| Terminal: starship prompt, fastfetch greeting, eza and bat | Control center: blurred panels and a translucent layout |
+|---|---|
+| ![Terminal](docs/screenshots/terminal.webp) | ![Control center](docs/screenshots/control-center.webp) |
+| **Wallpaper picker (Mod+Shift+Y): searches subfolders, with thumbnails** | |
+| ![Wallpaper picker](docs/screenshots/wallpaper-picker.webp) | |
+
+The wallpapers in the screenshots are not included in this repository; see [WALLPAPERS.md](WALLPAPERS.md) for where to download them.
+
 ## Design
 
 Night over a misty lake: the surfaces are not pure black but the blue-green of lake water at night, in five depth steps; the accents carry over the lake cyan, add a moss green from the forest, and keep a single warm lantern amber that appears only on things that are genuinely urgent.
