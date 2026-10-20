@@ -11,7 +11,7 @@ packages = [
   "catos-niri-utils",
   "matugen",
   "adw-gtk-theme",
-  "qt6ct-kde",
+  "qt6ct",
   "qt6-multimedia",
   "fuzzel",
   "satty",

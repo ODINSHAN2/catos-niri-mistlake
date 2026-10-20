@@ -111,6 +111,34 @@ print("  fcitx5: Catppuccin Sapphire skin, horizontal candidates (fcitx5 not run
 EOF
 fi
 
+# Qt: the Profile uses Arch's qt6ct (rebuilt with every Qt release) instead
+# of CatOS's qt6ct-kde, whose plugin was built for an older Qt and is then
+# silently ignored, leaving every Qt app unthemed. Plain qt6ct cannot read
+# KDE .colors files, so point it at the qt6ct palette DMS generates.
+# qt6ct.conf is a seed; only color_scheme_path and custom_palette are touched.
+qt6ct_conf="$HOME/.config/qt6ct/qt6ct.conf"
+if [[ -f "$qt6ct_conf" ]]; then
+    python3 -I - "$qt6ct_conf" <<'EOF'
+import os, sys
+path = sys.argv[1]
+want = {"color_scheme_path": os.path.expanduser("~/.config/qt6ct/colors/matugen.conf"),
+        "custom_palette": "true"}
+lines = open(path, encoding="utf-8").read().splitlines()
+seen = set()
+for i, line in enumerate(lines):
+    key = line.split("=", 1)[0]
+    if key in want:
+        lines[i] = f"{key}={want[key]}"
+        seen.add(key)
+missing = [f"{k}={v}" for k, v in want.items() if k not in seen]
+if missing:
+    at = lines.index("[Appearance]") + 1 if "[Appearance]" in lines else len(lines)
+    lines[at:at] = missing
+open(path, "w", encoding="utf-8").write("\n".join(lines) + "\n")
+print("  qt6ct: DMS palette (qt6ct format)")
+EOF
+fi
+
 # Restart so DMS reloads settings.json. DMS reads theme.json asynchronously
 # and its startup generation can run before the palette has loaded, leaving
 # the old colors in niri, GTK, Qt and the terminals; re-asserting the current
