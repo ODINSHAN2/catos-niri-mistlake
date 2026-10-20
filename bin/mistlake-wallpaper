@@ -46,19 +46,26 @@ fi
 
 current=$(dms ipc call wallpaper get 2>/dev/null | tr -d '"' || true)
 select_index=0
-menu=""
 for i in "${!images[@]}"; do
-    img=${images[$i]}
-    rel=${img#"$root"/}
-    dir=$(dirname -- "$rel")
-    name=$(basename -- "$rel")
-    name=${name%.*}
-    if [[ "$dir" == "." ]]; then label="$name"; else label="${dir//\// › }  ·  $name"; fi
-    [[ "$img" == "$current" ]] && select_index=$i
-    menu+="$label"$'\0'"icon"$'\x1f'"$(thumb_for "$img")"$'\n'
+    [[ "${images[$i]}" == "$current" ]] && select_index=$i
 done
 
-choice=$(printf '%s' "$menu" | fuzzel --dmenu --index \
+# Entries use fuzzel's rofi-style icon protocol: "label\0icon\x1f/path.png".
+# They are printed straight into the pipe, because a bash variable cannot
+# hold the NUL separator (it was silently dropped, so no thumbnails showed).
+menu_entries() {
+    local img rel dir name label
+    for img in "${images[@]}"; do
+        rel=${img#"$root"/}
+        dir=$(dirname -- "$rel")
+        name=$(basename -- "$rel")
+        name=${name%.*}
+        if [[ "$dir" == "." ]]; then label="$name"; else label="${dir//\// › }  ·  $name"; fi
+        printf '%s\0icon\x1f%s\n' "$label" "$(thumb_for "$img")"
+    done
+}
+
+choice=$(menu_entries | fuzzel --dmenu --index \
     --prompt "壁纸 ❯ " --line-height=40 --lines 8 --width 56 \
     --select-index "$select_index" --counter) || exit 0
 [[ -n "$choice" ]] || exit 0
