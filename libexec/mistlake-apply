@@ -148,6 +148,16 @@ print("  qt6ct: DMS palette (qt6ct format)")
 EOF
 fi
 
+# Cursor: niri (~/.icons/default), GTK settings.ini and XCURSOR_THEME already
+# use Bibata-Modern-Ice, but the gsettings key read by GTK4/libadwaita apps
+# and portal dialogs defaulted to Adwaita, so the cursor changed style
+# between windows. Keep every source on the same theme and size.
+if command -v gsettings >/dev/null 2>&1; then
+    gsettings set org.gnome.desktop.interface cursor-theme "${XCURSOR_THEME:-Bibata-Modern-Ice}"
+    gsettings set org.gnome.desktop.interface cursor-size "${XCURSOR_SIZE:-24}"
+    echo "  cursor: ${XCURSOR_THEME:-Bibata-Modern-Ice} ${XCURSOR_SIZE:-24}px everywhere"
+fi
+
 # Restart so DMS reloads settings.json. DMS reads theme.json asynchronously
 # and its startup generation can run before the palette has loaded, leaving
 # the old colors in niri, GTK, Qt and the terminals; re-asserting the current
