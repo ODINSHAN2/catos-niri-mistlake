@@ -52,4 +52,6 @@ manage = [
   ".icons/default/index.theme",
   ".config/gtk-3.0/gtk.css",
   ".config/DankMaterialShell/themes/mistlake",
+  ".config/matugen/templates/mistlake",
+  ".config/matugen/mistlake.toml",
 ]

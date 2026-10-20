@@ -1,0 +1,16 @@
+# Mistlake matugen templates. mistlake-apply splices this file into
+# ~/.config/matugen/config.toml between the "mistlake" markers, because that
+# file is a catdot seed (yours after the first activation) and DMS reads its
+# user templates from there.
+[templates.mistlake_fcitx5_panel]
+input_path = '~/.config/matugen/templates/mistlake/fcitx5/panel.svg'
+output_path = '~/.local/share/fcitx5/themes/Mistlake/panel.svg'
+
+[templates.mistlake_fcitx5_highlight]
+input_path = '~/.config/matugen/templates/mistlake/fcitx5/highlight.svg'
+output_path = '~/.local/share/fcitx5/themes/Mistlake/highlight.svg'
+
+[templates.mistlake_fcitx5_theme]
+input_path = '~/.config/matugen/templates/mistlake/fcitx5/theme.conf'
+output_path = '~/.local/share/fcitx5/themes/Mistlake/theme.conf'
+post_hook = 'fcitx5-remote -r >/dev/null 2>&1 || true'
