@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+# System-level parts of Mistlake that catdot (HOME only) cannot manage.
+# Run with sudo:
+#   sudo /usr/lib/catos-niri-mistlake/mistlake-system          apply
+#   sudo /usr/lib/catos-niri-mistlake/mistlake-system --revert restore backup
+# ly: only the keys in mistlake.ini are changed; the original is backed up
+# once as /etc/ly/config.ini.mistlake-orig.
+set -euo pipefail
+
+share=/usr/share/catos-niri-mistlake-system
+conf=/etc/ly/config.ini
+orig=/etc/ly/config.ini.mistlake-orig
+
+if [[ $EUID -ne 0 ]]; then
+    echo "mistlake-system: run with sudo" >&2
+    exit 1
+fi
+
+if [[ "${1:-}" == --revert ]]; then
+    if [[ -f "$orig" ]]; then
+        cp -- "$orig" "$conf"
+        echo "ly: restored $conf from $orig"
+    else
+        echo "ly: no backup at $orig, nothing to restore" >&2
+        exit 1
+    fi
+    exit 0
+fi
+
+if [[ ! -f "$conf" ]]; then
+    echo "ly: $conf not found, skipped"
+    exit 0
+fi
+[[ -f "$orig" ]] || cp -- "$conf" "$orig"
+
+python3 -I - "$conf" "$share/ly/mistlake.ini" <<'PY'
+import os, sys, tempfile
+conf, preset = sys.argv[1], sys.argv[2]
+want = {}
+for line in open(preset, encoding="utf-8"):
+    line = line.strip()
+    if line and not line.startswith("#") and "=" in line:
+        k, v = (x.strip() for x in line.split("=", 1))
+        want[k] = v
+lines = open(conf, encoding="utf-8").read().splitlines()
+seen = set()
+for i, line in enumerate(lines):
+    s = line.strip()
+    if s.startswith("#") or "=" not in s:
+        continue
+    k = s.split("=", 1)[0].strip()
+    if k in want:
+        lines[i] = f"{k} = {want[k]}"
+        seen.add(k)
+lines += [f"{k} = {v}" for k, v in want.items() if k not in seen]
+fd, tmp = tempfile.mkstemp(dir=os.path.dirname(conf))
+with os.fdopen(fd, "w", encoding="utf-8") as f:
+    f.write("\n".join(lines) + "\n")
+os.chmod(tmp, os.stat(conf).st_mode)
+os.replace(tmp, conf)
+print(f"ly: Mistlake appearance applied ({len(want)} keys); takes effect at the next login screen")
+PY
