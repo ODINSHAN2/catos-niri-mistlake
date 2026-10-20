@@ -10,8 +10,8 @@ window-decoration = false
 window-padding-x = 16
 window-padding-y = 14
 window-padding-balance = true
-# A thin veil of the wallpaper behind the text, like looking through mist.
-background-opacity = 0.94
+# Translucent so the niri blur behind it shows: the wallpaper as mist.
+background-opacity = 0.88
 background-blur-radius = 32
 
 # Cursor Configuration

@@ -16,3 +16,11 @@ output_path = '~/.local/share/fcitx5/themes/Mistlake/highlight.svg'
 input_path = '~/.config/matugen/templates/mistlake/fcitx5/theme.conf'
 output_path = '~/.local/share/fcitx5/themes/Mistlake/theme.conf'
 post_hook = 'busctl --user call org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1 ReloadAddonConfig s classicui >/dev/null 2>&1 || true'
+
+[templates.mistlake_gtk3]
+input_path = '~/.config/matugen/templates/mistlake/gtk/mistlake.css'
+output_path = '~/.config/gtk-3.0/mistlake.css'
+
+[templates.mistlake_gtk4]
+input_path = '~/.config/matugen/templates/mistlake/gtk/mistlake.css'
+output_path = '~/.config/gtk-4.0/mistlake.css'

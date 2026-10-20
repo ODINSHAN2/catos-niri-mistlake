@@ -1,1 +1,3 @@
 @import url("dank-colors.css");
+/* Mistlake: translucent surfaces for niri blur; must come after dank-colors.css. */
+@import url("mistlake.css");

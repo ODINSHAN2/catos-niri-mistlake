@@ -32,3 +32,29 @@ window-rule {
     geometry-corner-radius 14
     clip-to-geometry true
 }
+
+// Background blur (niri 26.04+). Slightly larger and calmer than the default
+// so translucent windows read as frosted mist rather than glass.
+blur {
+    passes 3
+    offset 4.0
+    noise 0.03
+    saturation 1.3
+}
+
+// Ask for blur behind every window. Only translucent surfaces show it (GTK via
+// mistlake.css, ghostty, and apps that request it themselves); xray stays on,
+// so the blur is of the wallpaper and is computed once for all windows.
+window-rule {
+    background-effect {
+        blur true
+    }
+}
+
+// fuzzel draws a translucent panel; blur behind it too.
+layer-rule {
+    match namespace="^launcher$"
+    background-effect {
+        blur true
+    }
+}
