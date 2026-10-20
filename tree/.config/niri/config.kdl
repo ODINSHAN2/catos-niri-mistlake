@@ -12,6 +12,10 @@ include "catos/windowrules.kdl"
 include "catos/recent-windows.kdl"
 include "catos/tools.kdl"
 
+// Mistlake theme layer: overrides the CatOS baseline, below DMS fragments.
+include "mistlake/look.kdl"
+include "mistlake/motion.kdl"
+
 // DMS-generated and DMS-owned fragments.
 include optional=true "dms/colors.kdl"
 include optional=true "dms/layout.kdl"

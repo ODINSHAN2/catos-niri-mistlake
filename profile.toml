@@ -38,6 +38,7 @@ manage = [
   ".config/niri/catos/windowrules.kdl",
   ".config/niri/catos/recent-windows.kdl",
   ".config/niri/catos/tools.kdl",
+  ".config/niri/mistlake",
   ".config/environment.d/80-catos-niri.conf",
   ".config/xdg-desktop-portal/niri-portals.conf",
   ".gtkrc-2.0",

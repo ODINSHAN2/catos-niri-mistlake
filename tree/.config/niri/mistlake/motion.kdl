@@ -1,0 +1,33 @@
+// Mistlake motion: critically damped springs (no bounce) and a long ease-out
+// on open, so windows settle like something surfacing, not snapping.
+animations {
+    workspace-switch {
+        spring damping-ratio=1.0 stiffness=600 epsilon=0.0001
+    }
+    horizontal-view-movement {
+        spring damping-ratio=1.0 stiffness=520 epsilon=0.0001
+    }
+    window-movement {
+        spring damping-ratio=0.92 stiffness=420 epsilon=0.0001
+    }
+    window-resize {
+        spring damping-ratio=1.0 stiffness=480 epsilon=0.0001
+    }
+    window-open {
+        duration-ms 220
+        curve "cubic-bezier" 0.16 1 0.3 1
+    }
+    window-close {
+        duration-ms 160
+        curve "ease-out-quad"
+    }
+    overview-open-close {
+        spring damping-ratio=1.0 stiffness=700 epsilon=0.0001
+    }
+}
+
+recent-windows {
+    highlight {
+        corner-radius 14
+    }
+}
