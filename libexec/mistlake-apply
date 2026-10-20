@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# One-time DMS setup after `catdot select catos-niri-mistlake`.
+# Catdot never runs hooks, and DMS keeps these values in its own settings.json
+# (outside any Profile), so they are applied through DMS IPC instead of files.
+set -euo pipefail
+
+theme="$HOME/.config/DankMaterialShell/themes/mistlake/theme.json"
+if [[ ! -f "$theme" ]]; then
+    echo "mistlake-apply: $theme not found. Run: catdot select catos-niri-mistlake" >&2
+    exit 1
+fi
+if ! dms ipc call settings get currentThemeName >/dev/null 2>&1; then
+    echo "mistlake-apply: DMS is not running; log in to the niri session first." >&2
+    exit 1
+fi
+
+set_dms() {
+    dms ipc call settings set "$1" "$2" >/dev/null
+    printf '  %-26s %s\n' "$1" "$2"
+}
+
+echo "Applying Mistlake to DMS:"
+set_dms customThemeFile        "$theme"
+set_dms currentThemeCategory   custom
+set_dms currentThemeName       custom
+set_dms cornerRadius           14
+set_dms niriLayoutRadiusOverride 14
+set_dms niriLayoutGapsOverride 10
+set_dms niriLayoutBorderSize   2
+set_dms monoFontFamily         "Maple Mono NF"
+
+# IPC writes settings without re-running theme generation; a restart makes DMS
+# load the custom theme and regenerate niri, GTK, Qt and terminal colors.
+dms restart >/dev/null 2>&1 || true
+echo "DMS restarted. Colors settle within a few seconds."
