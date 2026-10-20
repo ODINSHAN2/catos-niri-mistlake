@@ -48,4 +48,7 @@ output_path = '~/.config/starship/mistlake.toml'
 [templates.mistlake_fish]
 input_path = '~/.config/matugen/templates/mistlake/shell/colors.fish'
 output_path = '~/.config/fish/mistlake-colors.fish'
+[templates.mistlake_fastfetch]
+input_path = '~/.config/matugen/templates/mistlake/shell/fastfetch.jsonc'
+output_path = '~/.config/fastfetch/config.jsonc'
 # <<< mistlake
