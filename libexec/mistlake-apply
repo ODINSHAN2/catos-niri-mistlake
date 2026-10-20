@@ -29,7 +29,20 @@ set_dms niriLayoutGapsOverride 10
 set_dms niriLayoutBorderSize   2
 set_dms monoFontFamily         "Maple Mono NF"
 
-# IPC writes settings without re-running theme generation; a restart makes DMS
-# load the custom theme and regenerate niri, GTK, Qt and terminal colors.
+# IPC writes settings without re-running theme generation, so restart DMS to
+# load the custom theme. DMS reads theme.json asynchronously and its startup
+# generation can run before the file has loaded, leaving the old colors in
+# niri, GTK, Qt and the terminals. Re-asserting the current color mode once
+# DMS is back forces a full regeneration from the loaded Mistlake palette.
 dms restart >/dev/null 2>&1 || true
-echo "DMS restarted. Colors settle within a few seconds."
+for _ in $(seq 1 30); do
+    sleep 0.5
+    dms ipc call theme getMode >/dev/null 2>&1 && break
+done
+sleep 2
+mode=$(dms ipc call theme getMode 2>/dev/null | tr -d '"[:space:]')
+case "$mode" in
+    light) dms ipc call theme light >/dev/null ;;
+    *)     dms ipc call theme dark >/dev/null ;;
+esac
+echo "DMS restarted and colors regenerated (${mode:-dark} mode)."

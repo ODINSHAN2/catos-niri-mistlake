@@ -2,7 +2,7 @@
 # Local package: build from this repository with `makepkg -si`.
 pkgname=catos-niri-mistlake
 pkgver=0.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="CatOS Niri DMS catdot Profile in the Mistlake theme"
 arch=('any')
 license=('MIT')
