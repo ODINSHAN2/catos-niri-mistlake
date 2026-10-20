@@ -1,0 +1,74 @@
+{
+  "_comment": "Mistlake shell preset. mistlake-apply merges these keys into ~/.config/DankMaterialShell/settings.json; every other DMS setting is left as it is. 'bar' is merged into the bar whose id is 'default'.",
+  "settings": {
+    "fontFamily": "Inter Variable",
+    "monoFontFamily": "Maple Mono NF",
+    "fontWeight": 400,
+    "fontScale": 1.0,
+
+    "cornerRadius": 14,
+    "niriLayoutRadiusOverride": 14,
+    "niriLayoutGapsOverride": 10,
+    "niriLayoutBorderSize": 2,
+
+    "widgetColorMode": "default",
+    "widgetBackgroundColor": "sch",
+
+    "blurEnabled": true,
+    "blurForegroundLayers": true,
+    "blurBorderEnabled": true,
+    "blurBorderColor": "outline",
+    "blurBorderOpacity": 0.3,
+    "blurLayerOutlineOpacity": 0.1,
+    "popupTransparency": 0.86,
+    "foregroundLayerTransparency": 0.9,
+
+    "m3ElevationEnabled": true,
+    "m3ElevationIntensity": 8,
+    "m3ElevationOpacity": 22,
+
+    "clockDateFormat": "M月d日 ddd",
+
+    "dankLauncherV2BorderEnabled": true,
+    "dankLauncherV2BorderColor": "outline",
+    "dankLauncherV2BorderThickness": 1,
+
+    "notificationShowTimeoutBar": true,
+    "notificationPopupShadowEnabled": true,
+
+    "showWorkspaceIndex": false,
+    "showWorkspaceApps": false,
+    "workspaceFocusedBorderEnabled": false,
+
+    "blurredWallpaperLayer": true,
+    "blurWallpaperOnOverview": true
+  },
+  "bar": {
+    "position": 0,
+    "leftWidgets": ["launcherButton", "workspaceSwitcher", "focusedWindow"],
+    "centerWidgets": ["music", "clock"],
+    "rightWidgets": ["systemTray", "clipboard", "notificationButton", "controlCenterButton"],
+    "attachToScreenEdge": false,
+    "barInsetPadding": 10,
+    "barLengthPadding": 0,
+    "spacing": 6,
+    "innerPadding": 6,
+    "widgetPadding": 10,
+    "transparency": 0.82,
+    "widgetTransparency": 0,
+    "squareCorners": false,
+    "noBackground": false,
+    "gothCornersEnabled": false,
+    "borderEnabled": true,
+    "borderColor": "outline",
+    "borderOpacity": 0.35,
+    "borderThickness": 1,
+    "widgetOutlineEnabled": false,
+    "shadowIntensity": 6,
+    "shadowOpacity": 35,
+    "popupGapsAuto": false,
+    "popupGapsManual": 10,
+    "fontScale": 1,
+    "iconScale": 1
+  }
+}
