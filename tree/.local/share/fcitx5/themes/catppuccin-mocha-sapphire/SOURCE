@@ -1,0 +1,4 @@
+Catppuccin for Fcitx5, https://github.com/catppuccin/fcitx5
+Upstream commit: 393845cf3ed0e0000bfe57fe1b9ad75748e2547f
+Local change: rounded corners enabled (the two Image= lines uncommented, as upstream enable-rounded.sh does).
+License: MIT, see LICENSE.

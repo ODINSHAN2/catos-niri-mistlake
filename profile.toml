@@ -54,4 +54,6 @@ manage = [
   ".config/DankMaterialShell/themes/mistlake",
   ".config/matugen/templates/mistlake",
   ".config/matugen/mistlake.toml",
+  ".local/share/fcitx5/themes/catppuccin-mocha-sapphire",
+  ".local/share/fcitx5/themes/catppuccin-latte-sapphire",
 ]
