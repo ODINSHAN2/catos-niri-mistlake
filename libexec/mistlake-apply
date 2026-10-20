@@ -80,9 +80,17 @@ print("  matugen: Mistlake templates registered")
 EOF
 
 # fcitx5: rounded Mistlake skin with horizontal candidates. Only these three
-# keys are touched; fonts and every other classicui option stay yours.
+# keys are touched; fonts and every other classicui option stay yours. A
+# running fcitx5 keeps classicui settings in memory and fcitx5-remote -r does
+# not reload them, so set them over D-Bus (applied at once and saved to
+# classicui.conf); edit the file only when fcitx5 is not running.
 classicui="$HOME/.config/fcitx5/conf/classicui.conf"
-if [[ -f "$classicui" ]]; then
+if busctl --user call org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1 \
+        SetConfig sv "fcitx://config/addon/classicui" "a{sv}" 3 \
+        "Theme" s "Mistlake" "DarkTheme" s "Mistlake" \
+        "Vertical Candidate List" s "False" >/dev/null 2>&1; then
+    echo "  fcitx5: Mistlake skin, horizontal candidates (applied live)"
+elif [[ -f "$classicui" ]]; then
     python3 -I - "$classicui" <<'EOF'
 import sys
 path = sys.argv[1]
@@ -96,7 +104,7 @@ for i, line in enumerate(lines):
         seen.add(key)
 lines += [f"{k}={v}" for k, v in want.items() if k not in seen]
 open(path, "w", encoding="utf-8").write("\n".join(lines) + "\n")
-print("  fcitx5: Mistlake skin, horizontal candidates")
+print("  fcitx5: Mistlake skin, horizontal candidates (fcitx5 not running; file updated)")
 EOF
 fi
 

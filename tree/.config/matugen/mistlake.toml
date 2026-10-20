@@ -2,6 +2,8 @@
 # ~/.config/matugen/config.toml between the "mistlake" markers, because that
 # file is a catdot seed (yours after the first activation) and DMS reads its
 # user templates from there.
+# fcitx5-remote -r does not reload the classicui addon, so the hook asks
+# fcitx5 over D-Bus to reload classicui, which re-reads the skin.
 [templates.mistlake_fcitx5_panel]
 input_path = '~/.config/matugen/templates/mistlake/fcitx5/panel.svg'
 output_path = '~/.local/share/fcitx5/themes/Mistlake/panel.svg'
@@ -13,4 +15,4 @@ output_path = '~/.local/share/fcitx5/themes/Mistlake/highlight.svg'
 [templates.mistlake_fcitx5_theme]
 input_path = '~/.config/matugen/templates/mistlake/fcitx5/theme.conf'
 output_path = '~/.local/share/fcitx5/themes/Mistlake/theme.conf'
-post_hook = 'fcitx5-remote -r >/dev/null 2>&1 || true'
+post_hook = 'busctl --user call org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1 ReloadAddonConfig s classicui >/dev/null 2>&1 || true'
