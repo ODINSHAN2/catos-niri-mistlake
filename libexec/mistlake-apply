@@ -217,10 +217,18 @@ EOF
 # use Bibata-Modern-Ice, but the gsettings key read by GTK4/libadwaita apps
 # and portal dialogs defaulted to Adwaita, so the cursor changed style
 # between windows. Keep every source on the same theme and size.
+# XCURSOR_THEME may be "default" (the ~/.icons/default alias), which GTK4
+# does not resolve through Inherits=, so prefer the real name from GTK's
+# settings.ini and never write "default".
 if command -v gsettings >/dev/null 2>&1; then
-    gsettings set org.gnome.desktop.interface cursor-theme "${XCURSOR_THEME:-Bibata-Modern-Ice}"
-    gsettings set org.gnome.desktop.interface cursor-size "${XCURSOR_SIZE:-24}"
-    echo "  cursor: ${XCURSOR_THEME:-Bibata-Modern-Ice} ${XCURSOR_SIZE:-24}px everywhere"
+    cursor=$(sed -n 's/^gtk-cursor-theme-name=//p' "$HOME/.config/gtk-3.0/settings.ini" 2>/dev/null | head -n1)
+    [[ -z "$cursor" || "$cursor" == default ]] && cursor=${XCURSOR_THEME:-}
+    [[ -z "$cursor" || "$cursor" == default ]] && cursor=Bibata-Modern-Ice
+    size=$(sed -n 's/^gtk-cursor-theme-size=//p' "$HOME/.config/gtk-3.0/settings.ini" 2>/dev/null | head -n1)
+    size=${size:-${XCURSOR_SIZE:-24}}
+    gsettings set org.gnome.desktop.interface cursor-theme "$cursor"
+    gsettings set org.gnome.desktop.interface cursor-size "$size"
+    echo "  cursor: $cursor ${size}px everywhere"
 fi
 
 # Restart so DMS reloads settings.json. DMS reads theme.json asynchronously
