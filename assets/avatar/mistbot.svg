@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>Mistbot</title>
+  <defs>
+    <radialGradient id="sky" cx="50%" cy="38%" r="70%">
+      <stop offset="0" stop-color="#1f3a42"/>
+      <stop offset="0.6" stop-color="#122127"/>
+      <stop offset="1" stop-color="#0a1013"/>
+    </radialGradient>
+    <linearGradient id="shell" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4fafb"/>
+      <stop offset="1" stop-color="#c9dadd"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#16262c"/>
+      <stop offset="1" stop-color="#0c1518"/>
+    </linearGradient>
+    <radialGradient id="eye" cx="50%" cy="45%" r="60%">
+      <stop offset="0" stop-color="#9ff0fa"/>
+      <stop offset="0.7" stop-color="#5ec8d8"/>
+      <stop offset="1" stop-color="#2f9fb2"/>
+    </radialGradient>
+    <radialGradient id="lantern" cx="40%" cy="38%" r="65%">
+      <stop offset="0" stop-color="#fff1d6"/>
+      <stop offset="0.55" stop-color="#e7b874"/>
+      <stop offset="1" stop-color="#c98f3c"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#e7b874" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#e7b874" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#sky)"/>
+  <!-- mist bands -->
+  <ellipse cx="120" cy="430" rx="190" ry="34" fill="#dce8ea" opacity="0.06"/>
+  <ellipse cx="400" cy="455" rx="200" ry="30" fill="#dce8ea" opacity="0.05"/>
+
+  <!-- body -->
+  <path d="M136 512 C136 430 190 398 256 398 C322 398 376 430 376 512 Z" fill="url(#shell)"/>
+  <rect x="226" y="440" width="60" height="26" rx="13" fill="#9cc9a8"/>
+  <circle cx="242" cy="453" r="5" fill="#24443a"/>
+  <circle cx="270" cy="453" r="5" fill="#24443a"/>
+
+  <!-- antenna -->
+  <circle cx="256" cy="78" r="46" fill="url(#glow)"/>
+  <rect x="250" y="88" width="12" height="44" rx="6" fill="#c9dadd"/>
+  <circle cx="256" cy="80" r="20" fill="url(#lantern)"/>
+  <circle cx="249" cy="73" r="6" fill="#ffffff" opacity="0.8"/>
+
+  <!-- ears -->
+  <rect x="96" y="216" width="40" height="92" rx="20" fill="#9cc9a8"/>
+  <rect x="376" y="216" width="40" height="92" rx="20" fill="#9cc9a8"/>
+
+  <!-- head -->
+  <rect x="120" y="124" width="272" height="250" rx="96" fill="url(#shell)"/>
+  <path d="M150 170 C170 140 220 132 256 132" stroke="#ffffff" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.7"/>
+
+  <!-- face screen -->
+  <rect x="152" y="182" width="208" height="156" rx="66" fill="url(#screen)"/>
+
+  <!-- eyes -->
+  <ellipse cx="210" cy="252" rx="27" ry="33" fill="url(#eye)"/>
+  <ellipse cx="302" cy="252" rx="27" ry="33" fill="url(#eye)"/>
+  <circle cx="200" cy="238" r="9" fill="#ffffff"/>
+  <circle cx="292" cy="238" r="9" fill="#ffffff"/>
+  <circle cx="218" cy="266" r="4" fill="#ffffff" opacity="0.85"/>
+  <circle cx="310" cy="266" r="4" fill="#ffffff" opacity="0.85"/>
+
+  <!-- blush -->
+  <ellipse cx="176" cy="300" rx="17" ry="10" fill="#ff9fae" opacity="0.62"/>
+  <ellipse cx="336" cy="300" rx="17" ry="10" fill="#ff9fae" opacity="0.62"/>
+
+  <!-- smile -->
+  <path d="M238 300 Q256 318 274 300" stroke="#5ec8d8" stroke-width="8" stroke-linecap="round" fill="none"/>
+</svg>
