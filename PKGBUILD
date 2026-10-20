@@ -1,7 +1,7 @@
 # Maintainer: ODINSHAN2 <185443073+ODINSHAN2@users.noreply.github.com>
 # Local package: build from this repository with `makepkg -si`.
 pkgname=catos-niri-mistlake
-pkgver=0.8.2
+pkgver=0.9.0
 pkgrel=1
 pkgdesc="CatOS Niri DMS catdot Profile in the Mistlake theme"
 arch=('any')

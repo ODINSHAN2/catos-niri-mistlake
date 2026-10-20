@@ -1,0 +1,6 @@
+Derived from Catppuccin for Fcitx5, https://github.com/catppuccin/fcitx5
+Upstream commit: 393845cf3ed0e0000bfe57fe1b9ad75748e2547f (catppuccin-mocha-sapphire)
+Local changes (Mistlake): EnableBlur=True with a 2px BlurMargin; rounded corners on;
+translucent panel tint with a hairline edge and a translucent glass highlight
+pill (panel.svg, highlight.svg); HighlightCandidateColor adjusted for the pill.
+License: MIT, see LICENSE.

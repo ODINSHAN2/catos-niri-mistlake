@@ -79,25 +79,34 @@ open(config_path, "w", encoding="utf-8").write(text)
 print("  matugen: Mistlake templates registered")
 EOF
 
-# fcitx5: Catppuccin Sapphire skins (latte when light, mocha when dark, so
-# fcitx5 follows the light/dark preference DMS sets) with horizontal
+# fcitx5: frosted Catppuccin Sapphire skins (latte when light, mocha when dark,
+# so fcitx5 follows the light/dark preference DMS sets) with horizontal
 # candidates. Only these four keys are touched; fonts and every other
 # classicui option stay yours. A running fcitx5 keeps classicui settings in
-# memory and fcitx5-remote -r does not reload them, so set them over D-Bus (applied at once and saved to
-# classicui.conf); edit the file only when fcitx5 is not running.
+# memory and fcitx5-remote -r does not reload them, so set them over D-Bus
+# (applied at once and saved to classicui.conf); edit the file only when
+# fcitx5 is not running. The skins ask niri for blur, which fcitx5 only binds
+# when it creates its surfaces, so restart fcitx5 when the skin changes.
 classicui="$HOME/.config/fcitx5/conf/classicui.conf"
-if busctl --user call org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1 \
-        SetConfig sv "fcitx://config/addon/classicui" "a{sv}" 4 \
-        "Theme" s "catppuccin-latte-sapphire" \
-        "DarkTheme" s "catppuccin-mocha-sapphire" "UseDarkTheme" s "True" \
+fcitx_ctl=(busctl --user call org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1)
+old_skin=$("${fcitx_ctl[@]}" GetConfig s "fcitx://config/addon/classicui" 2>/dev/null \
+    | grep -oE '"DarkTheme" s "[^"]*"' || true)
+if "${fcitx_ctl[@]}" SetConfig sv "fcitx://config/addon/classicui" "a{sv}" 4 \
+        "Theme" s "catppuccin-latte-sapphire-frost" \
+        "DarkTheme" s "catppuccin-mocha-sapphire-frost" "UseDarkTheme" s "True" \
         "Vertical Candidate List" s "False" >/dev/null 2>&1; then
-    echo "  fcitx5: Catppuccin Sapphire skin, horizontal candidates (applied live)"
+    if [[ "$old_skin" != *'"catppuccin-mocha-sapphire-frost"'* ]]; then
+        setsid -f fcitx5 -r -d >/dev/null 2>&1 || true
+        echo "  fcitx5: frosted Catppuccin Sapphire skin, horizontal candidates (fcitx5 restarted for blur)"
+    else
+        echo "  fcitx5: frosted Catppuccin Sapphire skin, horizontal candidates (already active)"
+    fi
 elif [[ -f "$classicui" ]]; then
     python3 -I - "$classicui" <<'EOF'
 import sys
 path = sys.argv[1]
-want = {"Vertical Candidate List": "False", "Theme": "catppuccin-latte-sapphire",
-        "DarkTheme": "catppuccin-mocha-sapphire", "UseDarkTheme": "True"}
+want = {"Vertical Candidate List": "False", "Theme": "catppuccin-latte-sapphire-frost",
+        "DarkTheme": "catppuccin-mocha-sapphire-frost", "UseDarkTheme": "True"}
 lines = open(path, encoding="utf-8").read().splitlines()
 seen = set()
 for i, line in enumerate(lines):
@@ -107,7 +116,7 @@ for i, line in enumerate(lines):
         seen.add(key)
 lines += [f"{k}={v}" for k, v in want.items() if k not in seen]
 open(path, "w", encoding="utf-8").write("\n".join(lines) + "\n")
-print("  fcitx5: Catppuccin Sapphire skin, horizontal candidates (fcitx5 not running; file updated)")
+print("  fcitx5: frosted Catppuccin Sapphire skin, horizontal candidates (fcitx5 not running; file updated)")
 EOF
 fi
 
