@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>Mistcat</title>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="75%">
+      <stop offset="0" stop-color="#16252b"/>
+      <stop offset="1" stop-color="#0b1114"/>
+    </radialGradient>
+    <linearGradient id="hair" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef4fb"/>
+      <stop offset="0.55" stop-color="#dbe6f5"/>
+      <stop offset="1" stop-color="#a9dde6"/>
+    </linearGradient>
+    <linearGradient id="hairBack" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c9d8ee"/>
+      <stop offset="1" stop-color="#86cbd8"/>
+    </linearGradient>
+    <linearGradient id="hood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6fd0de"/>
+      <stop offset="1" stop-color="#3fa9bb"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#bg)"/>
+
+  <!-- back hair -->
+  <path d="M70 512 C40 400 52 250 120 170 C170 112 342 112 392 170 C460 250 472 400 442 512 Z" fill="url(#hairBack)"/>
+  <path d="M74 470 C56 488 50 500 44 512 L96 512 Z" fill="url(#hairBack)"/>
+  <path d="M438 470 C456 488 462 500 468 512 L416 512 Z" fill="url(#hairBack)"/>
+
+  <!-- hoodie -->
+  <path d="M118 512 C124 452 176 420 256 420 C336 420 388 452 394 512 Z" fill="url(#hood)"/>
+  <path d="M206 424 L256 470 L306 424" fill="none" stroke="#2c8796" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+  <line x1="236" y1="462" x2="232" y2="500" stroke="#e8f6f8" stroke-width="5" stroke-linecap="round"/>
+  <line x1="276" y1="462" x2="280" y2="500" stroke="#e8f6f8" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- neck shadow -->
+  <path d="M214 400 L298 400 L292 432 Q256 446 220 432 Z" fill="#efcfc8"/>
+
+  <!-- ears -->
+  <path d="M112 196 L104 52 C150 62 196 96 222 132 Z" fill="url(#hair)"/>
+  <path d="M128 172 L124 86 C154 98 178 118 196 140 Z" fill="#f5b8ad"/>
+  <path d="M132 150 C142 130 150 118 166 112 C156 128 154 140 160 156 Z" fill="#ffffff" opacity="0.85"/>
+  <path d="M400 196 L408 52 C362 62 316 96 290 132 Z" fill="url(#hair)"/>
+  <path d="M384 172 L388 86 C358 98 334 118 316 140 Z" fill="#f5b8ad"/>
+  <path d="M380 150 C370 130 362 118 346 112 C356 128 358 140 352 156 Z" fill="#ffffff" opacity="0.85"/>
+
+  <!-- face -->
+  <path d="M120 290 C120 200 182 160 256 160 C330 160 392 200 392 290 C392 372 330 418 256 418 C182 418 120 372 120 290 Z" fill="#fdeee9"/>
+
+  <!-- top of head / bangs -->
+  <!-- bangs: soft locks, back to front -->
+  <path d="M112 232 C116 273 140 296 150 314 C160 294 174 269 178 232 Q145 218 112 232 Z" fill="#dfe9f6" stroke="#bccfe9" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M360 240 C364 271 372 284 382 302 C392 282 400 268 404 240 Q382 226 360 240 Z" fill="#dfe9f6" stroke="#bccfe9" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M318 214 C322 261 346 290 356 308 C366 288 390 256 394 214 Q356 200 318 214 Z" fill="#e4edf8" stroke="#bccfe9" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M150 206 C154 252 184 280 194 298 C204 278 230 247 234 206 Q192 192 150 206 Z" fill="#e4edf8" stroke="#bccfe9" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M268 200 C272 246 292 274 302 292 C312 272 336 241 340 200 Q304 186 268 200 Z" fill="#eaf1fa" stroke="#bccfe9" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M206 194 C210 260 236 308 246 326 C256 306 288 253 292 194 Q249 180 206 194 Z" fill="#eef4fb" stroke="#bccfe9" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- crown of the head -->
+  <path d="M108 300 C96 196 160 118 256 116 C352 118 416 196 404 300 Q380 236 256 214 Q132 236 108 300 Z" fill="url(#hair)"/>
+  <!-- side locks framing the face -->
+  <path d="M120 230 C98 300 104 380 132 452 C140 400 146 340 150 290 Z" fill="url(#hair)"/>
+  <path d="M392 230 C414 300 408 380 380 452 C372 400 366 340 362 290 Z" fill="url(#hair)"/>
+  <!-- hair shine -->
+  <path d="M176 168 C196 150 222 142 246 142" stroke="#ffffff" stroke-width="9" stroke-linecap="round" fill="none" opacity="0.75"/>
+  <path d="M286 146 C300 148 312 152 322 158" stroke="#ffffff" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.6"/>
+
+  <!-- ahoge -->
+  <path d="M250 122 C236 84 262 56 300 62 C276 70 266 92 270 120 Z" fill="url(#hair)"/>
+
+  <!-- eyes -->
+  <ellipse cx="204" cy="326" rx="15" ry="25" fill="#1b2a30" transform="rotate(-8 204 326)"/>
+  <ellipse cx="308" cy="326" rx="15" ry="25" fill="#1b2a30" transform="rotate(8 308 326)"/>
+  <circle cx="199" cy="315" r="5.5" fill="#ffffff"/>
+  <circle cx="303" cy="315" r="5.5" fill="#ffffff"/>
+
+  <!-- blush -->
+  <ellipse cx="172" cy="364" rx="22" ry="12" fill="#f7a8a8" opacity="0.7"/>
+  <ellipse cx="340" cy="364" rx="22" ry="12" fill="#f7a8a8" opacity="0.7"/>
+
+  <!-- cat mouth -->
+  <path d="M240 362 Q248 372 256 362 Q264 372 272 362" fill="none" stroke="#c46f74" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- hair clips: lantern and water drop -->
+  <g transform="translate(352 238) rotate(12)">
+    <rect x="-4" y="-22" width="8" height="8" rx="2" fill="#8a5a12"/>
+    <rect x="-13" y="-15" width="26" height="32" rx="11" fill="#e7b874"/>
+    <rect x="-8" y="-9" width="6" height="18" rx="3" fill="#fff1d6" opacity="0.9"/>
+    <rect x="-10" y="15" width="20" height="5" rx="2.5" fill="#8a5a12"/>
+  </g>
+  <g transform="translate(372 292) rotate(-28)">
+    <path d="M0 -20 C14 -12 16 8 0 22 C-16 8 -14 -12 0 -20 Z" fill="#9cc9a8"/>
+    <path d="M0 -14 L0 16" stroke="#3f6b4f" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M0 -2 L6 -8 M0 6 L-6 0" stroke="#3f6b4f" stroke-width="2" stroke-linecap="round"/>
+  </g>
+</svg>
