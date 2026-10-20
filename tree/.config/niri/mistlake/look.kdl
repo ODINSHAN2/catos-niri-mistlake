@@ -49,6 +49,16 @@ window-rule {
     background-effect {
         blur true
     }
+
+    // Menus and popovers opened from buttons (xdg-popups). niri blurs these
+    // non-xray, so the window underneath frosts too. Input-method popups
+    // (fcitx5) are not covered by niri.
+    popups {
+        geometry-corner-radius 12
+        background-effect {
+            blur true
+        }
+    }
 }
 
 // fuzzel draws a translucent panel; blur behind it too.
@@ -59,7 +69,7 @@ layer-rule {
     }
 }
 
-// Electron and Firefox windows paint their own opaque backgrounds, so the blur
+// Electron, Firefox and WebKitGTK (Tauri) windows paint opaque backgrounds, so the blur
 // above never shows through them. Fade the whole window a little instead:
 // text stays sharp at these levels and the frost appears behind it.
 window-rule {
@@ -68,6 +78,7 @@ window-rule {
     match app-id=r#"^firefox$"#
     match app-id=r#"^code(-oss)?$"#
     match app-id=r#"^(chromium|google-chrome|brave-browser)$"#
+    match app-id=r#"^clash-verge$"#
     opacity 0.94
 }
 
@@ -77,6 +88,7 @@ window-rule {
     match app-id=r#"^firefox$"# is-active=false
     match app-id=r#"^code(-oss)?$"# is-active=false
     match app-id=r#"^(chromium|google-chrome|brave-browser)$"# is-active=false
+    match app-id=r#"^clash-verge$"# is-active=false
     opacity 0.88
 }
 
