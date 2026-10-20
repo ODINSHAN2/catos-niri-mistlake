@@ -28,6 +28,7 @@ packages = [
   "xwayland-satellite",
   "tela-circle-icon-theme-all",
   "catos-bibata-cursor",
+  "ttf-maplemono-nf-unhinted",
 ]
 
 manage = [
