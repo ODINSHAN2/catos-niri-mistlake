@@ -1,0 +1,13 @@
+// Loaded after dms/colors.kdl. DMS derives urgent colors from the error role;
+// Mistlake keeps urgency on the lantern amber so red stays for real errors.
+layout {
+    focus-ring {
+        urgent-color "#e7b874"
+    }
+    border {
+        urgent-color "#e7b874"
+    }
+    tab-indicator {
+        urgent-color "#e7b874"
+    }
+}
